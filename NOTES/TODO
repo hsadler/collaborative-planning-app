@@ -1,0 +1,16 @@
+
+- planning:
+	- define entities
+	- map out entity relationships
+	- tech-spec services base on functional requirements
+- choose technologies
+- POC backend serving of index and JSON endpoint
+- POC BE->client socket communication
+- draft data schemas
+- create data tables
+- stub data, service, api classes
+- POC CRUD
+- implement BE
+- implement client
+- test
+- document
