@@ -20,8 +20,9 @@ RUN apk add --no-cache \
     # uwsgi \
     # uwsgi-python3
 
-    # python3 -m ensurepip && \
+# RUN python3 -m ensurepip && \
     # rm -r /usr/lib/python*/ensurepip && \
+
 RUN \
     # pip install pip setuptools && \
     pip install -r /tmp/requirements.txt 

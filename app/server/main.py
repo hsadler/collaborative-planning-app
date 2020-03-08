@@ -4,6 +4,8 @@ from flask import (
 	render_template,
 	jsonify
 )
+from flask_socketio import SocketIO, emit
+
 
 # init Flask app instance
 app = Flask(
@@ -15,17 +17,28 @@ app = Flask(
 	# static_folder='../client/dist/static',
 	# template_folder='../client/dist'
 )
+# init socketio
+socketio = SocketIO(app)
 
 
-# register api routes
-# from api.web.wall_messages_api import web_wall_messages_api
-# app.register_blueprint(web_wall_messages_api, url_prefix='/api/wall-messages')
-
-
-# ping route
+# ping route (for testing)
 @app.route('/ping', methods=['GET'])
 def ping():
 	return jsonify({ 'output': 'hi there' })
+
+
+# TESTING: sockets!
+@socketio.on('chat message')
+def chat_message(message):
+    emit('chat message', message, broadcast=True)
+
+@socketio.on('connect')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
+
+@socketio.on('disconnect')
+def test_disconnect():
+    print('Client disconnected')
 
 
 # serve index for non-API calls
@@ -37,6 +50,6 @@ def catch_all(path):
 
 # run the app if executed as main file to python interpreter
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=80)
+	socketio.run(app, host='0.0.0.0', port=80)
 
 
