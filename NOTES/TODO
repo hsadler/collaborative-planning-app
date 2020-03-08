@@ -1,8 +1,8 @@
 
-- planning:
-	- define entities
-	- map out entity relationships
-	- tech-spec services base on functional requirements
+X planning:
+	X define entities
+	X map out entity relationships
+	X tech-spec services base on functional requirements
 - choose technologies
 - POC backend serving of index and JSON endpoint
 - POC BE->client socket communication

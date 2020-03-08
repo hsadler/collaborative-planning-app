@@ -1,0 +1,68 @@
+
+
+ENTITIES
+
+user
+	- can be created
+	- can be selected during login
+	- can create tasks
+	- can cast 1 vote per task
+	- can update task vote
+
+task
+	- can have many associated votes
+
+vote
+	- has single associated user
+	- has single associated task
+
+
+================================================================================
+
+
+RELATIONSHIPS SUMMARY
+
+users are connected to tasks by a single vote
+
+
+================================================================================
+
+
+---ARCHITECTURE---
+
+
+DATA/SERVICE CLASSES
+
+User {
+	create(userName)
+	findAll()
+}
+
+Task {
+	create()
+	findAll()
+}
+
+Vote {
+	create()
+	findOneByUserAndTask(userId, taskId)
+	findAllByTask(taskId)
+	updateByUserAndTask(userId, taskId)
+}
+
+
+ENDPOINTS
+
+// user
+createUser(userName)
+getAllUsers()
+
+// task
+createTask(taskName)
+getAllTasksSimpleMetadata()
+getTaskById(taskId)
+
+// vote
+createOrUpdateVote(userId, taskId, voteValue)
+getAllVotesByTask(taskId)
+
