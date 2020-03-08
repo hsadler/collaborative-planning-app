@@ -28,6 +28,12 @@ deactivate the virtual environment when finished
 deactivate
 ```
 
+spin-up services with docker compose
+```sh
+docker-compose -f docker-compose.yaml up --build --force-recreate \
+	--remove-orphans --abort-on-container-exit
+```
+
 
 ---
 

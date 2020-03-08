@@ -1,0 +1,39 @@
+
+version: '3'
+
+
+services:
+
+  webapp:
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    image: collaborative-planning-app
+    container_name: collaborative-planning-app
+    restart: always
+    links:
+      - mysql:mysql
+    ports:
+     - "80:80"
+    # volumes:
+     # - /app/client/node_modules
+    command: 'python server/main.py'
+
+  mysql:
+    image: mysql:8.0.19
+    container_name: collaborative-planning-app-mysql
+    restart: always
+    volumes:
+     - ./mysql_store:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=collaborative-planning-app
+
+  adminer:
+    image: adminer:latest
+    container_name: collaborative-planning-app-adminer
+    restart: always
+    links:
+      - mysql:mysql
+    ports:
+      - "8080:8080"

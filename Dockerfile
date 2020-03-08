@@ -57,7 +57,4 @@ WORKDIR /app
 # RUN cd /app/client && \
 #     npm run build
 
-# TESTING:
-CMD ["python", "server/main.py"]
-
-# the rest is handled by the docker-compose.yml file
+# the rest is handled by the docker-compose.yaml file

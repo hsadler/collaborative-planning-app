@@ -8,6 +8,7 @@ X POC containerization
 X POC backend serving of index and JSON endpoint
 X POC BE->client socket communication
 X draft data schemas
+X get docker compose working for MySQL
 - create data tables
 - stub data, service, api classes
 - POC CRUD
