@@ -1,0 +1,25 @@
+
+
+SCHEMAS
+
+
+// user
+CREATE TABLE IF NOT EXISTS user (
+	`uuid4 VARCHAR(32) PRIMARY KEY,
+	`name` VARCHAR(255) NOT NULL
+)
+
+// task
+CREATE TABLE IF NOT EXISTS task (
+	`uuid4` VARCHAR(32) PRIMARY KEY,
+	`title` VARCHAR(1000) NOT NULL
+)
+	
+// vote
+CREATE TABLE IF NOT EXISTS vote (
+	`uuid4` VARCHAR(32) PRIMARY KEY,
+	`variant` tinyint(3) UNSIGNED NOT NULL,
+	`user_uuid4` VARCHAR(32) NOT NULL,
+	`task_uuid4` VARCHAR(32) NOT NULL
+)
+

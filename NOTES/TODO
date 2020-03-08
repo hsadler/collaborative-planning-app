@@ -7,7 +7,7 @@ X choose technologies
 X POC containerization
 X POC backend serving of index and JSON endpoint
 X POC BE->client socket communication
-- draft data schemas
+X draft data schemas
 - create data tables
 - stub data, service, api classes
 - POC CRUD
