@@ -1,0 +1,22 @@
+
+
+TECHNOLOGIES:
+
+
+OS/Containerization:
+	- Docker
+	- Alpine
+
+Datastore:
+	- MySQL
+
+Backend:
+	- Python
+	- Flask (https://github.com/pallets/flask)
+	- Flask-SocketIO (https://github.com/miguelgrinberg/Flask-SocketIO)
+	- mysqlclient (https://github.com/PyMySQL/mysqlclient-python)
+
+Web Client:
+	- Vue.js (https://github.com/vuejs/vue)
+	- Socket.IO (https://socket.io/get-started/chat/)
+
