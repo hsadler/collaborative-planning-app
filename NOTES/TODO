@@ -15,11 +15,12 @@ X stub API layer
 X stub data and service classes
 X POC CRUD
 X update vote schema to be unique compound key: user_uuid4, task_uuid4
-- implement BE:
+X implement BE:
 	X user
-	- task
+	X task
 	X vote
 	X vote_variant
+X write API test script
 - implement client
 - test
 - document

@@ -75,20 +75,9 @@ docker exec -it collaborative-planning-app-mysql \
 	mysql --user=root --password=password collaborative-planning-app
 ```
 
-test api with curl
+test api with shell script
 ```sh
-# user api
-curl http://localhost/api/create-user?user_name=jimmy
-curl http://localhost/api/get-all-users
-# task api
-curl http://localhost/api/create-task?task_title=mytask
-curl http://localhost/api/get-all-tasks-simple-metadata
-# curl http://localhost/api/get-task-by-id?task_id=taskid
-# vote api
-curl http://localhost/api/create-or-update-vote?user_id=userid&task_id=taskid&vote_variant=5
-curl http://localhost/api/get-all-votes-by-task?task_id=taskid
-# vote_variant api
-curl http://localhost/api/get-available-vote-variants
+source tests/test_api.sh
 ```
 
 
