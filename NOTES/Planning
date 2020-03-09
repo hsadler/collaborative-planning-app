@@ -39,7 +39,7 @@ User {
 }
 
 Task {
-	create()
+	create(taskName)
 	findAll()
 }
 

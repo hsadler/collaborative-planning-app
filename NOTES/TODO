@@ -11,7 +11,8 @@ X draft data schemas
 X get docker compose working for MySQL
 X POC Python->MySQL communication
 X create data tables
-- stub data, service, api classes
+X stub API layer
+X stub data and service classes
 - POC CRUD
 - implement BE
 - implement client

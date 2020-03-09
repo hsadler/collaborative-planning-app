@@ -6,7 +6,7 @@ class MySqlDriver():
 
 
 	@classmethod
-	def query_bind(self, query_string, bind_vars={}):
+	def query_bind(cls, query_string, bind_vars={}):
 		"""
 		Performs a MySQL query from a raw query string and returns the result.
 		Uses bound variables to protect against SQL injection.
@@ -30,14 +30,14 @@ class MySqlDriver():
 					bind_str,
 					'%({0})s'.format(key)
 				)
-		conn, cur = self.connect()
+		conn, cur = cls.connect()
 		cur.execute(query_string, bind_vars)
 		conn.close()
 		return cur.fetchall()
 
 
 	@classmethod
-	def connect(self):
+	def connect(cls):
 		conn = mdb.connect(
 			host=config.MYSQL_HOST,
 			user=config.MYSQL_USER,

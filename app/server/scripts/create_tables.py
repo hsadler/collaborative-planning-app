@@ -34,7 +34,7 @@ create_vote_table_query = """
 	CREATE TABLE IF NOT EXISTS vote (
 		`uuid4` VARCHAR(32) PRIMARY KEY,
 		`variant` tinyint(3) UNSIGNED NOT NULL,
-		`vote_uuid4` VARCHAR(32) NOT NULL,
+		`user_uuid4` VARCHAR(32) NOT NULL,
 		`task_uuid4` VARCHAR(32) NOT NULL
 	)
 """
