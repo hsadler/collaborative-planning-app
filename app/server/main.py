@@ -10,6 +10,8 @@ from flask_socketio import SocketIO, emit
 
 # import services
 from service.user_service import UserService
+from service.task_service import TaskService
+from service.vote_service import VoteService
 
 
 # init Flask app instance
@@ -36,13 +38,17 @@ def ping():
 ########## user API ##########
 
 
-# TODO: change to POST, GET is only for testing...
+# TODO: convert this to a POST later
 @app.route('/api/create-user', methods=['GET'])
 def create_user():
 	user_name = request.args.get('user_name')
 	if user_name is None:
+		res = {
+			'success': 0,
+			'error': '"user_name" param required'
+		}
 		return make_response(
-			jsonify({'error': '"user_name" param required'}),
+			jsonify(res),
 			400
 		)
 	user = UserService.create_user(user_name)
@@ -74,25 +80,45 @@ def get_all_users():
 ########## task API ##########
 
 
-# TODO: change to POST, GET is only for testing...
+# TODO: convert this to a POST later
 @app.route('/api/create-task', methods=['GET'])
 def create_task():
-	task_name = request.args.get('task_name')
-	if task_name is None:
+	task_title = request.args.get('task_title')
+	if task_title is None:
+		res = {
+			'success': 0,
+			'error': '"task_title" param required'
+		}
 		return make_response(
-			jsonify({'error': '"task_name" param required'}),
+			jsonify(res),
 			400
 		)
-	# TODO: implement stub
-	return jsonify({'status': 'endpoint not yet implemented'})
+	task = TaskService.create_task(task_title)
+	if task is not None:
+		task = TaskService.get_task_api_formatted_data(task)
+	res = {
+		'success': 1 if task is not None else 0,
+		'task': task
+	}
+	return jsonify(res)
 
 
 @app.route('/api/get-all-tasks-simple-metadata', methods=['GET'])
 def get_all_tasks_simple_metadata():
-	# TODO: implement stub
-	return jsonify({'status': 'endpoint not yet implemented'})
+	tasks = TaskService.load_all_tasks()
+	if tasks is not None:
+		tasks = [
+			TaskService.get_task_api_formatted_data(task)
+			for task in tasks
+		]
+	res = {
+		'success': 1 if tasks is not None else 0,
+		'tasks': tasks
+	}
+	return jsonify(res)
 
 
+# TODO: do this later after making a descision about tying votes to a task
 @app.route('/api/get-task-by-id', methods=['GET'])
 def get_task_by_id():
 	task_uuid4 = request.args.get('task_id')

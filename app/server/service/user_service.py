@@ -35,8 +35,8 @@ class UserService():
 	@classmethod
 	def load_all_users(cls):
 		sql = """
-			SELECT * FROM user
-		"""
+			SELECT * FROM {0}
+		""".format(cls.USER_TABLE)
 		success, query_result = MySqlDriver.query_bind(sql)
 		users = [
 			User(user_record['uuid4'], user_record['name']) for

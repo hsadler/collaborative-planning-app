@@ -69,3 +69,4 @@ docker exec -it collaborative-planning-app-mysql \
 	mysql --user=root --password=password collaborative-planning-app
 ```
 
+
