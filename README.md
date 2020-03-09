@@ -56,7 +56,7 @@ http://localhost/
 ---
 
 
-### Dev Commands (requires docker-compose to be running)
+### Dev Commands (requires local containers to be running via docker-compose)
 
 connect to python-flask server container
 ```sh
