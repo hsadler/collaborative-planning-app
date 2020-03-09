@@ -120,16 +120,17 @@ def get_all_tasks_simple_metadata():
 
 
 # TODO: implement later after making a decision about tying votes to a task
-@app.route('/api/get-task-by-id', methods=['GET'])
-def get_task_by_id():
-	task_uuid4 = request.args.get('task_id')
-	if task_uuid4 is None:
-		return make_response(
-			jsonify({'error': '"task_id" param required'}),
-			400
-		)
-	# TODO: implement stub
-	return jsonify({'status': 'endpoint not yet implemented'})
+# MAYBE DON'T NEED THIS IF CLIENT FETCHES VOTES SEPARATELY FROM TASK
+# @app.route('/api/get-task-by-id', methods=['GET'])
+# def get_task_by_id():
+# 	task_uuid4 = request.args.get('task_id')
+# 	if task_uuid4 is None:
+# 		return make_response(
+# 			jsonify({'error': '"task_id" param required'}),
+# 			400
+# 		)
+# 	# TODO: implement stub
+# 	return jsonify({'status': 'endpoint not yet implemented'})
 
 
 

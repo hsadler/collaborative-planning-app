@@ -83,7 +83,7 @@ curl http://localhost/api/get-all-users
 # task api
 curl http://localhost/api/create-task?task_title=mytask
 curl http://localhost/api/get-all-tasks-simple-metadata
-curl http://localhost/api/get-task-by-id?task_id=taskid
+# curl http://localhost/api/get-task-by-id?task_id=taskid
 # vote api
 curl http://localhost/api/create-or-update-vote?user_id=userid&task_id=taskid&vote_variant=5
 curl http://localhost/api/get-all-votes-by-task?task_id=taskid
