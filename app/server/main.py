@@ -12,6 +12,7 @@ from flask_socketio import SocketIO, emit
 from service.user_service import UserService
 from service.task_service import TaskService
 from service.vote_service import VoteService
+from service.vote_variant_service import VoteVariantService
 
 
 # init Flask app instance
@@ -118,7 +119,7 @@ def get_all_tasks_simple_metadata():
 	return jsonify(res)
 
 
-# TODO: do this later after making a descision about tying votes to a task
+# TODO: implement later after making a decision about tying votes to a task
 @app.route('/api/get-task-by-id', methods=['GET'])
 def get_task_by_id():
 	task_uuid4 = request.args.get('task_id')
@@ -135,6 +136,7 @@ def get_task_by_id():
 ########## vote API ##########
 
 
+# TODO: convert this to socket endpoint later
 @app.route('/api/create-or-update-vote', methods=['GET'])
 def create_or_update_vote():
 	# validate input params
@@ -145,8 +147,23 @@ def create_or_update_vote():
 				jsonify({'error': 'missing required input param'}),
 				400
 			)
-	# TODO: implement stub
-	return jsonify({'status': 'endpoint not yet implemented'})
+	# get params
+	user_uuid4 = request.args.get('user_id')
+	task_uuid4 = request.args.get('task_id')
+	vote_variant = request.args.get('vote_variant')
+	# create or update
+	vote = VoteService.create_or_update_vote(
+		user_uuid4, 
+		task_uuid4, 
+		vote_variant
+	)
+	if vote is not None:
+		vote = VoteService.get_vote_api_formatted_data(vote)
+	res = {
+		'success': 1 if votes is not None else 0,
+		'vote': vote
+	}
+	return jsonify(vote)
 
 
 @app.route('/api/get-all-votes-by-task-id', methods=['GET'])
@@ -157,8 +174,36 @@ def get_all_votes_by_task_id():
 			jsonify({'error': '"task_id" param required'}),
 			400
 		)
-	# TODO: implement stub
-	return jsonify({'status': 'endpoint not yet implemented'})
+	votes = VoteService.load_all_votes_by_task(task_uuid4)
+	if votes is not None:
+		votes = [
+			VoteService.get_vote_api_formatted_data(vote)
+			for vote in votes
+		]
+	res = {
+		'success': 1 if votes is not None else 0,
+		'votes': votes
+	}
+	return jsonify(res)
+
+
+
+########## vote-variant API ##########
+
+
+@app.route('/api/get-all-vote-variants', methods=['GET'])
+def get_all_vote_variants():
+	vote_variants = VoteVariantService.load_all_vote_variants()
+	if vote_variants is not None:
+		vote_variants = [
+			VoteVariantService.get_vote_variant_api_formatted_data(vote_variant)
+			for vote_variant in vote_variants
+		]
+	res = {
+		'success': 1 if vote_variants is not None else 0,
+		'vote_variants': vote_variants
+	}
+	return jsonify(res)
 
 
 

@@ -16,6 +16,9 @@ vote
 	- has single associated user
 	- has single associated task
 
+vote_variant
+	- standard list of variants
+
 
 ================================================================================
 
@@ -35,19 +38,23 @@ DATA/SERVICE CLASSES
 
 User {
 	create(userName)
-	findAll()
+	loadAll()
 }
 
 Task {
 	create(taskName)
-	findAll()
+	loadAll()
 }
 
 Vote {
 	create()
-	findOneByUserAndTask(userId, taskId)
-	findAllByTask(taskId)
+	loadOneByUserAndTask(userId, taskId)
+	loadAllByTask(taskId)
 	updateByUserAndTask(userId, taskId)
+}
+
+VoteVariant {
+	loadAll()
 }
 
 
@@ -65,4 +72,9 @@ getTaskById(taskId)
 // vote
 createOrUpdateVote(userId, taskId, voteVariant)
 getAllVotesByTask(taskId)
+
+// vote_variant
+getAllVoteVariants()
+
+
 

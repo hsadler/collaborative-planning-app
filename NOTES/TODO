@@ -13,8 +13,19 @@ X POC Python->MySQL communication
 X create data tables
 X stub API layer
 X stub data and service classes
-- POC CRUD
-- implement BE
+X POC CRUD
+X update vote schema to be unique compound key: user_uuid4, task_uuid4
+- implement BE:
+	X user
+	- task
+	- vote
+	X vote_variant
 - implement client
 - test
 - document
+
+
+// scratch
+
+insert into vote (uuid4, variant, user_uuid4, task_uuid4)
+values ('abcd', '0', 'zyxb', 'qwery')

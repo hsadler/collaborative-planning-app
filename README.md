@@ -47,6 +47,12 @@ docker exec -it collaborative-planning-app \
 	bash -c "cd server/scripts/ && python create_tables.py"
 ```
 
+populate the `vote_variant` table
+```sh
+docker exec -it collaborative-planning-app \
+	bash -c "cd server/scripts/ && python populate_vote_variant_table.py"
+```
+
 navigate to application in browser
 ```sh
 http://localhost/

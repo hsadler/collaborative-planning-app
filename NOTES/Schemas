@@ -6,7 +6,7 @@ SCHEMAS
 // user
 CREATE TABLE IF NOT EXISTS user (
 	`uuid4` VARCHAR(32) PRIMARY KEY,
-	`name` VARCHAR(255) NOT NULL
+	`name` VARCHAR(255) NOT NULL UNIQUE
 )
 
 // task
@@ -20,6 +20,13 @@ CREATE TABLE IF NOT EXISTS vote (
 	`uuid4` VARCHAR(32) PRIMARY KEY,
 	`variant` tinyint(3) UNSIGNED NOT NULL,
 	`user_uuid4` VARCHAR(32) NOT NULL,
-	`task_uuid4` VARCHAR(32) NOT NULL
+	`task_uuid4` VARCHAR(32) NOT NULL,
+	UNIQUE KEY (`user_uuid4`, `task_uuid4`)
+)
+
+// vote_variant
+CREATE TABLE IF NOT EXISTS vote_variant (
+	`uuid4` VARCHAR(32) PRIMARY KEY,
+	`variant` VARCHAR(32) NOT NULL UNIQUE
 )
 
