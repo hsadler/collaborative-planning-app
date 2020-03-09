@@ -8,32 +8,20 @@ Prototype app for collaborative assessment of task complexity
 ### Requirements
 - Docker
 - Docker Compose
-<!-- - Python3 -->
-
-
-<!-- ---
-
-
-### All Following Commands Expect a Python Virtual Environment
-
-create virtual environment directory for python
-```sh
-python3 -m venv venv
-```
-start virtualenv
-```sh
-source venv/bin/activate
-```
-deactivate the virtual environment when finished
-```sh
-deactivate
-``` -->
 
 
 ---
 
 
 ### Setup
+
+build the app base image
+```sh
+docker build \
+	--no-cache \
+	-f=base.Dockerfile \
+	-t=collaborative-planning-app-base:v1 .
+```
 
 spin-up services with docker compose
 ```sh
