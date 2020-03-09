@@ -63,6 +63,6 @@ getAllTasksSimpleMetadata()
 getTaskById(taskId)
 
 // vote
-createOrUpdateVote(userId, taskId, voteValue)
+createOrUpdateVote(userId, taskId, voteVariant)
 getAllVotesByTask(taskId)
 

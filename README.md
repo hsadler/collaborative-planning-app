@@ -5,7 +5,7 @@
 Prototype app for collaborative assessment of task complexity
 
 
-## Requirements
+### Requirements
 - Docker
 - Docker Compose
 <!-- - Python3 -->
@@ -56,7 +56,7 @@ http://localhost/
 ---
 
 
-### Dev Notes (requires docker-compose to be running)
+### Dev Commands (requires docker-compose to be running)
 
 connect to python-flask server container
 ```sh
