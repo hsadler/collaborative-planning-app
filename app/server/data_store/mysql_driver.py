@@ -30,10 +30,18 @@ class MySqlDriver():
 					bind_str,
 					'%({0})s'.format(key)
 				)
+		success = True
+		result = ()
 		conn, cur = cls.connect()
-		cur.execute(query_string, bind_vars)
-		conn.close()
-		return cur.fetchall()
+		try:
+			cur.execute(query_string, bind_vars)
+			conn.commit()
+			result = cur.fetchall()
+		except:
+			success = False
+		finally:
+			conn.close()
+			return success, result
 
 
 	@classmethod

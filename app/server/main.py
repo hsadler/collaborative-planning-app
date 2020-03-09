@@ -8,6 +8,9 @@ from flask import (
 )
 from flask_socketio import SocketIO, emit
 
+# import services
+from service.user_service import UserService
+
 
 # init Flask app instance
 app = Flask(
@@ -42,14 +45,29 @@ def create_user():
 			jsonify({'error': '"user_name" param required'}),
 			400
 		)
-	# TODO: implement stub
-	return jsonify({'status': 'endpoint not yet implemented'})
+	user = UserService.create_user(user_name)
+	if user is not None:
+		user = UserService.get_user_api_formatted_data(user)
+	res = {
+		'success': 1 if user is not None else 0,
+		'user': user
+	}
+	return jsonify(res)
 
 
 @app.route('/api/get-all-users', methods=['GET'])
 def get_all_users():
-	# TODO: implement stub
-	return jsonify({'status': 'endpoint not yet implemented'})
+	users = UserService.load_all_users()
+	if users is not None:
+		users = [
+			UserService.get_user_api_formatted_data(user)
+			for user in users
+		]
+	res = {
+		'success': 1 if users is not None else 0,
+		'users': users
+	}
+	return jsonify(res)
 
 
 

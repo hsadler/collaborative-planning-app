@@ -1,8 +1,8 @@
 
 
-class User():
+class Task():
 	"""
-	User Struct
+	Task Struct
 	"""
 
 	def __init__(self, uuid4, title):

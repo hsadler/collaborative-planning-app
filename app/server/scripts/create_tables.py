@@ -11,7 +11,7 @@ from utils.print import ppp
 create_user_table_query = """
 	CREATE TABLE IF NOT EXISTS user (
 		`uuid4` VARCHAR(32) PRIMARY KEY,
-		`name` VARCHAR(255) NOT NULL
+		`name` VARCHAR(255) NOT NULL UNIQUE
 	)
 """
 query_result = MySqlDriver.query_bind(query_string=create_user_table_query)
