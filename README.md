@@ -7,10 +7,11 @@ Prototype app for collaborative assessment of task complexity
 
 ## Requirements
 - Docker
-- Python3
+- Docker Compose
+<!-- - Python3 -->
 
 
----
+<!-- ---
 
 
 ### All Following Commands Expect a Python Virtual Environment
@@ -26,7 +27,13 @@ source venv/bin/activate
 deactivate the virtual environment when finished
 ```sh
 deactivate
-```
+``` -->
+
+
+---
+
+
+### Setup
 
 spin-up services with docker compose
 ```sh
@@ -34,36 +41,31 @@ docker-compose -f docker-compose.yaml up --build --force-recreate \
 	--remove-orphans --abort-on-container-exit
 ```
 
+create the necessary mysql tables
+```sh
+docker exec -it collaborative-planning-app \
+	bash -c "cd server/scripts/ && python create_tables.py"
+```
+
+navigate to application in browser
+```sh
+http://localhost/
+```
+
 
 ---
 
 
-### Dev notes
+### Dev Notes (requires docker-compose to be running)
 
-install python requirements
+connect to python-flask server container
 ```sh
-pip install -r requirements.txt
+docker exec -it collaborative-planning-app bash
 ```
 
-spin-up dev server
+connect to mysql container, start mysql cli, and select database
 ```sh
-python server/main.py
+docker exec -it collaborative-planning-app-mysql \
+	mysql --user=root --password=password collaborative-planning-app
 ```
-
-build image for testing
-```sh
-docker build \
-	--no-cache \
-	-f=Dockerfile \
-	-t=collaborative-planning-app:local .
-```
-
-run image for testing
-```sh
-docker run -it --rm -p 80:80 \
-	--name collaborative-planning-app collaborative-planning-app:local
-```
-
-
-
 

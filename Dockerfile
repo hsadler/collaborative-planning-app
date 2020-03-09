@@ -12,7 +12,7 @@ RUN apk add --no-cache \
     # python3-dev \
     # nodejs \
     # nodejs-npm \
-    # bash \
+    bash \
     mariadb-dev \
     build-base
     # supervisor \
@@ -25,7 +25,7 @@ RUN apk add --no-cache \
 
 RUN \
     # pip install pip setuptools && \
-    pip install -r /tmp/requirements.txt 
+    pip install -r /tmp/requirements.txt
     # && \
     # rm /etc/nginx/conf.d/default.conf && \
     # rm -r /root/.cache

@@ -15,7 +15,8 @@ services:
       - mysql:mysql
     ports:
      - "80:80"
-    # volumes:
+    volumes:
+      - ./app:/app
      # - /app/client/node_modules
     command: 'python server/main.py'
 
