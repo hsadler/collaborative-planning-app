@@ -58,23 +58,26 @@ VoteVariant {
 }
 
 
-ENDPOINTS
+================================================================================
+
+
+API
 
 // user
-createUser(userName)
-getAllUsers()
+create-user(user_name)
+get-all-users()
 
 // task
-createTask(taskName)
-getAllTasksSimpleMetadata()
-getTaskById(taskId)
+create-task(task_title)
+get-all-tasks-simple-metadata()
+get-task-by-id(task_id)
 
 // vote
-createOrUpdateVote(userId, taskId, voteVariant)
-getAllVotesByTask(taskId)
+create-or-update-vote(user_id, task_id, vote_variant)
+get-all-votes-by-task(task_id)
 
 // vote_variant
-getAllVoteVariants()
+get-available-vote-variants()
 
 
 

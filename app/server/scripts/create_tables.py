@@ -32,7 +32,7 @@ ppp('result of create "task" table query:', query_result)
 create_vote_table_query = """
 	CREATE TABLE IF NOT EXISTS vote (
 		`uuid4` VARCHAR(32) PRIMARY KEY,
-		`variant` tinyint(3) UNSIGNED NOT NULL,
+		`variant` VARCHAR(32) NOT NULL,
 		`user_uuid4` VARCHAR(32) NOT NULL,
 		`task_uuid4` VARCHAR(32) NOT NULL,
 		UNIQUE KEY (`user_uuid4`, `task_uuid4`)

@@ -27,9 +27,7 @@ class UserService():
 			'name': user.name
 		}
 		success, query_result = MySqlDriver.query_bind(sql, bind_vars)
-		if not success:
-			return None
-		return user
+		return user if success else None
 
 
 	@classmethod
@@ -38,11 +36,13 @@ class UserService():
 			SELECT * FROM {0}
 		""".format(cls.USER_TABLE)
 		success, query_result = MySqlDriver.query_bind(sql)
-		users = [
-			User(user_record['uuid4'], user_record['name']) for
-			user_record in query_result
-		]
-		return users
+		if success and len(query_result) > 0:
+			users = [
+				User(user_record['uuid4'], user_record['name']) for
+				user_record in query_result
+			]
+			return users
+		return None
 
 	
 	@classmethod

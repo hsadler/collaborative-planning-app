@@ -31,7 +31,7 @@ class MySqlDriver():
 					'%({0})s'.format(key)
 				)
 		success = True
-		result = ()
+		result = None
 		conn, cur = cls.connect()
 		try:
 			cur.execute(query_string, bind_vars)

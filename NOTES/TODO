@@ -18,7 +18,7 @@ X update vote schema to be unique compound key: user_uuid4, task_uuid4
 - implement BE:
 	X user
 	- task
-	- vote
+	X vote
 	X vote_variant
 - implement client
 - test
@@ -26,6 +26,3 @@ X update vote schema to be unique compound key: user_uuid4, task_uuid4
 
 
 // scratch
-
-insert into vote (uuid4, variant, user_uuid4, task_uuid4)
-values ('abcd', '0', 'zyxb', 'qwery')

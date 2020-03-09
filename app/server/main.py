@@ -160,14 +160,14 @@ def create_or_update_vote():
 	if vote is not None:
 		vote = VoteService.get_vote_api_formatted_data(vote)
 	res = {
-		'success': 1 if votes is not None else 0,
+		'success': 1 if vote is not None else 0,
 		'vote': vote
 	}
-	return jsonify(vote)
+	return jsonify(res)
 
 
-@app.route('/api/get-all-votes-by-task-id', methods=['GET'])
-def get_all_votes_by_task_id():
+@app.route('/api/get-all-votes-by-task', methods=['GET'])
+def get_all_votes_by_task():
 	task_uuid4 = request.args.get('task_id')
 	if task_uuid4 is None:
 		return make_response(
@@ -191,7 +191,7 @@ def get_all_votes_by_task_id():
 ########## vote-variant API ##########
 
 
-@app.route('/api/get-all-vote-variants', methods=['GET'])
+@app.route('/api/get-available-vote-variants', methods=['GET'])
 def get_all_vote_variants():
 	vote_variants = VoteVariantService.load_all_vote_variants()
 	if vote_variants is not None:
