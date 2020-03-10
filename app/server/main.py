@@ -20,10 +20,10 @@ app = Flask(
 	__name__,
 
 	# testing
-	template_folder='../client'
+	# template_folder='../client'
 
-	# static_folder='../client/dist/static',
-	# template_folder='../client/dist'
+	static_folder='../client/dist/static',
+	template_folder='../client/dist'
 )
 # init socketio
 socketio = SocketIO(app)
