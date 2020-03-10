@@ -27,6 +27,7 @@ export default {
 				font-size: 3em;
 			}
 		a {
+			color: #2c3e50;
 			&:visited {
 				color: #2c3e50;
 			}

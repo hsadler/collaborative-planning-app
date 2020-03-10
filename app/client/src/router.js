@@ -11,7 +11,8 @@ import NotFound from '@/views/NotFound'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // BUG: enabling this causes a refresh issue for dynamic routes
+  // mode: 'history', 
   routes: [
     {
       path: '/',
@@ -19,28 +20,29 @@ export default new Router({
       component: Home
     },
     {
-      path: '/user-create',
+      path: '/user-create/',
       name: 'UserCreate',
       component: UserCreate
     },
     {
-      path: '/user-select',
+      path: '/user-select/',
       name: 'UserSelect',
       component: UserSelect
     },
     {
-      path: '/tasks',
+      path: '/tasks/',
       name: 'Tasks',
       component: Tasks
     },
     {
-      path: '/task/:id',
+      path: '/task/:taskId/',
       name: 'Task',
-      component: Task
+      component: Task,
+      props: true
     },
     // test route
     {
-      path: '/chat-room',
+      path: '/chat-room/',
       name: 'ChatRoom',
       component: ChatRoom
     },

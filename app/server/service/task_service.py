@@ -38,6 +38,8 @@ class TaskService():
 			SELECT * FROM {0}
 		""".format(cls.TASK_TABLE)
 		success, query_result = MySqlDriver.query_bind(sql)
+		if not success:
+			return None
 		tasks = [
 			Task(task_record['uuid4'], task_record['title']) for
 			task_record in query_result
@@ -46,8 +48,25 @@ class TaskService():
 
 
 	@classmethod
+	def load_task_by_uuid4(cls, task_uuid4):
+		sql = """
+			SELECT * FROM {0}
+			WHERE uuid4=:uuid4
+		""".format(cls.TASK_TABLE)
+		bind_vars = {
+			'uuid4': task_uuid4
+		}
+		success, query_result = MySqlDriver.query_bind(sql, bind_vars)
+		if success and len(query_result) > 0:
+			task_record = query_result[0]
+			return Task(task_record['uuid4'], task_record['title'])
+		return None
+
+
+	@classmethod
 	def get_task_api_formatted_data(cls, task):
 		return {
 			'uuid4': task.uuid4,
 			'title': task.title
 		}
+		

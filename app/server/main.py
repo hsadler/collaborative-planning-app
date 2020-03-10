@@ -115,6 +115,27 @@ def get_all_tasks():
 	return jsonify(res)
 
 
+@app.route('/api/get-task-by-id', methods=['GET'])
+def get_task_by_id():
+	task_uuid4 = request.args.get('task_id')
+	if task_uuid4 is None:
+		res = {
+			'success': 0,
+			'error': '"task_id" param required'
+		}
+		return make_response(
+			jsonify(res),
+			400
+		)
+	task = TaskService.load_task_by_uuid4(task_uuid4)
+	if task is not None:
+		task = TaskService.get_task_api_formatted_data(task)
+	res = {
+		'success': 1 if task is not None else 0,
+		'task': task
+	}
+	return jsonify(res)	
+
 
 ########## vote API ##########
 

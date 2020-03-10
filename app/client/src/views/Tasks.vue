@@ -48,7 +48,6 @@ export default {
 	},
 	methods: {
 		createTask () {
-			console.log('creating task')
 			this.submissionError = false
 			if(this.newTaskTitle.length < this.minCharacters) {
 				this.submissionError = true
@@ -57,7 +56,7 @@ export default {
 			// TODO: convert this to socket call
 			var url = '/api/create-task'
 			var params = {
-				'task_title': this.newTaskTitle
+				task_title: this.newTaskTitle
 			}
 			this.httpService.get(url, params).then((res) => {
 				if(res.success) {
@@ -70,7 +69,7 @@ export default {
 			this.$router.push({
 				name: 'Task',
 				params: {
-					id: task.uuid4
+					taskId: task.uuid4
 				}
 			})
 		}
