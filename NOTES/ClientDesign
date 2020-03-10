@@ -1,0 +1,25 @@
+
+CLIENT DESIGN
+
+
+Top-Nav:
+	- '/user-select'
+	- '/tasks' if user is selected
+
+
+Pages:
+
+	'/user-select':
+		- lists users
+		- user click navs to '/tasks'
+	
+	'/tasks':
+		- lists tasks
+		- task click navs to '/task/<task_id>'
+		- 'create task' button creates task and navs to it
+	
+	'/task/<task_id>':
+		- displays task title
+		- displays vote variants
+		- displays vote variant quantities
+		- vote variant click results in vote create/update

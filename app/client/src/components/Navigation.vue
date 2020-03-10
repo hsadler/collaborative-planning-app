@@ -1,8 +1,7 @@
 <template>
 	<div class="navigation-container">
 		<router-link to="/">Home</router-link> |
-		<router-link to="/task">Task</router-link> |
-		<router-link to="/chat-room">Chat Room</router-link>
+		<router-link to="/task">Task</router-link>
 	</div>
 </template>
 
