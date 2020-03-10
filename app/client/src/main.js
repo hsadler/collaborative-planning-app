@@ -5,13 +5,15 @@ import router from '@/router'
 import services from '@/services'
 import httpService from '@/services/httpService'
 import socketService from '@/services/socketService'
+import userService from '@/services/userService'
 
 
 Vue.config.productionTip = false
 
 services.registerServices({
   httpService,
-  socketService
+  socketService,
+  userService
 })
 
 new Vue({

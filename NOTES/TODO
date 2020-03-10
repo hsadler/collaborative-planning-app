@@ -27,8 +27,14 @@ X get Vue.js working
 	X POC routing
 	X POC API calls
 	X POC socket calls
-	- stub parts
-	- implement
+	X stub parts
+	- implement:
+		X nav
+		X home
+		X user-create
+		X user-select 
+		- tasks
+		- task
 - test
 - document
 

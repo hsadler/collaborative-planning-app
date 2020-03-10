@@ -1,6 +1,13 @@
 <template>
 	<div class="user-select-container">
 		<h1>Select User</h1>
+		<ul>
+			<li
+				v-for="(user, index) in users" 
+				:key="index"
+				@click="selectUser(user)"
+			>{{ user.name }}</li>
+		</ul>
 	</div>
 </template>
 
@@ -12,21 +19,35 @@ export default {
 	props: {},
 	data () {
 		return {
-			httpService: services.use('httpService')
+			httpService: services.use('httpService'),
+			userService: services.use('userService'),
+			users: []
 		}
 	},
 	methods: {
-		selectUser (userName) {
-			return userName
-			// TODO
+		selectUser (user) {
+			this.userService.setUser(user)
+			this.$router.push('/tasks')
 		}
 	},
 	created () {
-		// TODO: FETCH USERS
+		var url = '/api/get-all-users'
+		this.httpService.get(url).then((res) => {
+			if(res.success) {
+				this.users = res.users
+			}
+		})
 	}
 }
 </script>
 
 <style scoped lang="scss">
-	div.user-select-container {}
+	div.user-select-container {
+		ul {
+			li {
+				color: #42b983;
+				cursor: pointer;
+			}
+		}
+	}
 </style>

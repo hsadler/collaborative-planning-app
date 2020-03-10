@@ -1,25 +1,45 @@
 <template>
 	<div class="navigation-container">
-		<router-link id="home" to="/">Home</router-link>
-		<router-link v-if="true" id="tasks" to="/tasks">Tasks</router-link>
+		<router-link to="/">Home</router-link> 
+		<span v-if="showUser()">
+			&nbsp;|&nbsp;<router-link to="/tasks">Tasks</router-link>
+		</span>
+		<span class="user" v-if="showUser()">User: {{userName}}</span>
 	</div>
 </template>
 
 <script>
+import services from '@/services'
+
 export default {
 	name: 'Navigation',
-	props: {}
+	props: {},
+	data () {
+		return {
+			userService: services.use('userService')
+		}
+	},
+	methods: {
+		showUser() {
+			return !!this.userService.getUser()
+		}
+	},
+	computed: {
+		userName() {
+			return this.userService.getUser().name
+		}
+	}
 }
 </script>
 
 <style scoped lang="scss">
 	div.navigation-container {
-		padding: 30px 0;
+		padding-top: 30px;
 		a {
 			font-weight: bold;
-			&#tasks {
-				float: right
-			}
+		}
+		span.user {
+			float: right
 		}
 	}
 </style>
