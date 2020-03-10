@@ -3,15 +3,24 @@ CLIENT DESIGN
 
 
 Top-Nav:
-	- '/user-select'
-	- '/tasks' if user is selected
+	- "Home" -> '/'
+	- "Tasks" -> '/tasks' if user is selected
 
 
 Pages:
 
+	'/':
+		- displays site title
+		- 'select user' or 'create user' buttons nav to respective views
+
+	'/user-create':
+		- user_name field
+		- once submitted nav to '/tasks'
+
 	'/user-select':
 		- lists users
 		- user click navs to '/tasks'
+		- 'create user' button navs to '/user-create'
 	
 	'/tasks':
 		- lists tasks
@@ -23,3 +32,6 @@ Pages:
 		- displays vote variants
 		- displays vote variant quantities
 		- vote variant click results in vote create/update
+		- special behavior:
+			- fresh load of task url results in a redirect to '/user-select`
+				and once user is selected nav back to task

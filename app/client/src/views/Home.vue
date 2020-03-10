@@ -1,6 +1,8 @@
 <template>
   <div class="home-container">
-    <h1>Home page</h1>
+    <h1>Collaborative Planning App</h1>
+    <router-link to="/user-create">create user</router-link>
+    <router-link class="margin-left" to="/user-select">select user</router-link>
   </div>
 </template>
 
@@ -16,5 +18,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  div.home-container {}
+  div.home-container {
+    h1 {
+      font-size: 3em;
+    }
+    a.margin-left {
+      margin-left: 30px;
+    }
+  }
 </style>

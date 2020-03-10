@@ -1,7 +1,7 @@
 <template>
 	<div class="navigation-container">
-		<router-link to="/">Home</router-link> |
-		<router-link to="/task">Task</router-link>
+		<router-link id="home" to="/">Home</router-link>
+		<router-link v-if="true" id="tasks" to="/tasks">Tasks</router-link>
 	</div>
 </template>
 
@@ -14,12 +14,11 @@ export default {
 
 <style scoped lang="scss">
 	div.navigation-container {
-		padding: 30px;
+		padding: 30px 0;
 		a {
 			font-weight: bold;
-			color: #2c3e50;
-			&.router-link-exact-active {
-				color: #42b983;
+			&#tasks {
+				float: right
 			}
 		}
 	}
