@@ -77,7 +77,7 @@ def get_all_users():
 ########## task API ##########
 
 
-# TODO: convert this to a POST later
+# TODO: convert this to socket endpoint later
 @app.route('/api/create-task', methods=['GET'])
 def create_task():
 	task_title = request.args.get('task_title')
@@ -100,8 +100,8 @@ def create_task():
 	return jsonify(res)
 
 
-@app.route('/api/get-all-tasks-simple-metadata', methods=['GET'])
-def get_all_tasks_simple_metadata():
+@app.route('/api/get-all-tasks', methods=['GET'])
+def get_all_tasks():
 	tasks = TaskService.load_all_tasks()
 	if tasks is not None:
 		tasks = [
@@ -113,20 +113,6 @@ def get_all_tasks_simple_metadata():
 		'tasks': tasks
 	}
 	return jsonify(res)
-
-
-# TODO: implement later after making a decision about tying votes to a task
-# MAYBE DON'T NEED THIS IF CLIENT FETCHES VOTES SEPARATELY FROM TASK
-# @app.route('/api/get-task-by-id', methods=['GET'])
-# def get_task_by_id():
-# 	task_uuid4 = request.args.get('task_id')
-# 	if task_uuid4 is None:
-# 		return make_response(
-# 			jsonify({'error': '"task_id" param required'}),
-# 			400
-# 		)
-# 	# TODO: implement stub
-# 	return jsonify({'status': 'endpoint not yet implemented'})
 
 
 

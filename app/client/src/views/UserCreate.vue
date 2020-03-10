@@ -13,7 +13,7 @@
 			<p 
 				class="submission-error" 
 				v-if="submissionError"
-			>name must be at least 2 characters</p>
+			>name must be at least {{minCharacters}} characters</p>
 		</form>
 	</div>
 </template>
@@ -61,9 +61,9 @@ export default {
 		button#user-name-submit {
 			margin-left: 10px;
 		}
-	}
-	p.submission-error {
-		font-size: 0.8em;
-		color: red;
+		p.submission-error {
+			font-size: 0.8em;
+			color: red;
+		}
 	}
 </style>
