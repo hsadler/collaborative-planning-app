@@ -22,8 +22,13 @@ X implement BE:
 	X vote_variant
 X write API test script
 X add base dockerfile with OS installs
-- get Vue.js working
-- implement client
+X get Vue.js working
+- implement client:
+	X POC routing
+	X POC API calls
+	X POC socket calls
+	- stub parts
+	- implement
 - test
 - document
 
