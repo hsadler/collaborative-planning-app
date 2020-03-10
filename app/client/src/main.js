@@ -17,6 +17,13 @@ services.registerServices({
 })
 
 new Vue({
-  router,
-  render: h => h(App),
+	router,
+	mounted() {
+		var lsUser = localStorage.getItem('user')
+		if (lsUser) {
+			var user = JSON.parse(lsUser)
+			userService.setUser(user);
+		}
+	},
+	render: h => h(App),
 }).$mount('#app')

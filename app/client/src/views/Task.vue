@@ -20,7 +20,9 @@ export default {
 		return {
 			httpService: services.use('httpService'),
 			socketService: services.use('socketService'),
-			task: null
+			task: null,
+			voteVariants: [],
+			votes: []
 		}
 	},
 	methods: {},
@@ -34,13 +36,32 @@ export default {
 	},
 	created () {
 		// fetch task
-		var url = '/api/get-task-by-id'
 		var params = {
 			task_id: this.taskId
 		}
-		this.httpService.get(url, params).then((res) => {
+		this.httpService.get('/api/get-task-by-id', params).then((res) => {
 			if(res.success) {
 				this.task = res.task
+			}
+		})
+		// fetch vote variants
+		this.httpService.get('/api/get-available-vote-variants').then((res) => {
+			if(res.success) {
+				console.log(res.vote_variants)
+				this.voteVariants = res.vote_variants
+			}
+		})
+		// fetch votes
+		params = {
+			task_id: this.taskId
+		}
+		this.httpService.get(
+			'/api/get-all-votes-by-task', 
+			params
+		).then((res) => {
+			if(res.success) {
+				console.log(res.votes)
+				this.votes = res.votes
 			}
 		})
 	}

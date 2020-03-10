@@ -1,9 +1,8 @@
 <template>
 	<div class="navigation-container">
 		<router-link to="/">Home</router-link> 
-		<span v-if="showUser()">
-			&nbsp;|&nbsp;<router-link to="/tasks">Tasks</router-link>
-		</span>
+		&nbsp;|&nbsp;
+		<router-link to="/tasks">Tasks</router-link>
 		<span class="user" v-if="showUser()">User: {{userName}}</span>
 	</div>
 </template>

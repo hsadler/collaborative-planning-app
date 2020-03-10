@@ -4,7 +4,8 @@ CLIENT DESIGN
 
 Top-Nav:
 	- "Home" -> '/'
-	- "Tasks" -> '/tasks' if user is selected
+	- "Tasks" -> '/tasks'
+	- displays user if user has been selected
 
 
 Pages:
@@ -32,6 +33,12 @@ Pages:
 		- displays vote variants
 		- displays vote variant quantities
 		- vote variant click results in vote create/update
-		- special behavior:
-			- fresh load of task url results in a redirect to '/user-select`
-				and once user is selected nav back to task
+
+
+Special Behavior:
+	- selection of user results in user info being stored in local storage
+	- view of /task without being signed in gives option to select user in order 
+		to vote, and voting is blocked until user is selected
+
+
+

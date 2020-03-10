@@ -86,7 +86,7 @@ class VoteService():
 			'task_uuid4': task_uuid4
 		}
 		success, query_result = MySqlDriver.query_bind(sql, bind_vars)
-		if success and len(query_result) > 0:
+		if success and query_result is not None:
 			votes = [
 				cls.get_vote_struct_from_record(vote_record)
 				for vote_record in query_result

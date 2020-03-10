@@ -36,7 +36,7 @@ class UserService():
 			SELECT * FROM {0}
 		""".format(cls.USER_TABLE)
 		success, query_result = MySqlDriver.query_bind(sql)
-		if success and len(query_result) > 0:
+		if success and query_result is not None:
 			users = [
 				User(user_record['uuid4'], user_record['name']) for
 				user_record in query_result

@@ -24,8 +24,8 @@ export default {
 		padding: 30px;
 		color: #2c3e50;
 		h1 {
-				font-size: 3em;
-			}
+			font-size: 3em;
+		}
 		a {
 			color: #2c3e50;
 			&:visited {
