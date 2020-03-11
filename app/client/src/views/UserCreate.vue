@@ -12,8 +12,8 @@
 			<br>
 			<p 
 				class="submission-error" 
-				v-if="submissionError"
-			>name must be at least {{minCharacters}} characters</p>
+				v-if="showSubmissionError"
+			>{{submissionErrorMessage}}</p>
 		</form>
 	</div>
 </template>
@@ -30,14 +30,17 @@ export default {
 			userService: services.use('userService'),
 			userName: null,
 			minCharacters: 2,
-			submissionError: false
+			showSubmissionError: false,
+			submissionErrorMessage: ''
 		}
 	},
 	methods: {
 		createUser () {
-			this.submissionError = false
+			this.showSubmissionError = false
 			if(this.userName.length < this.minCharacters) {
-				this.submissionError = true
+				this.showSubmissionError = true
+				this.submissionErrorMessage = 'name must be at least ' + 
+					this.minCharacters + ' characters'
 				return
 			}
 			var data = {
@@ -47,6 +50,12 @@ export default {
 				if(res.success) {
 					this.userService.setUser(res.user)
 					this.$router.push('/tasks')
+				} else {
+					var userName = this.userName
+					this.showSubmissionError = true
+					this.submissionErrorMessage = 'user name "' + userName + 
+						'" already taken'
+					this.userName = null
 				}
 			})
 		}

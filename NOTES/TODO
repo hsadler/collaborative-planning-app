@@ -40,10 +40,10 @@ X polish:
 	X highlight user-selected vote
 	X ensure user-selection behaviour for voting
 	X any remaining styling
-- test:
-	- fresh repo clone and run-through
 - document:
 	- method docstrings
 	- README finalization
+- test:
+	- fresh repo clone and run-through
 
 
