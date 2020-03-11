@@ -17,7 +17,7 @@ RUN cd /tmp && \
 	cp -a /tmp/node_modules /app/client/
 
 # npm build
-# RUN cd /app/client && \
-# 	npm run build
+RUN cd /app/client && \
+	npm run build
 
 # the rest is handled by the docker-compose.yaml file

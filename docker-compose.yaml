@@ -16,9 +16,9 @@ services:
     ports:
      - "80:80"
      - "8080:8080"
-    volumes:
-      - ./app/server:/app/server
-      - ./app/client/src:/app/client/src
+    # volumes:
+    #   - ./app/server:/app/server
+    #   - ./app/client/src:/app/client/src
     command: 'python server/main.py'
 
   mysql:

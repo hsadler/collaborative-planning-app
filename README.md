@@ -13,7 +13,13 @@ Prototype app for collaborative assessment of task complexity
 ---
 
 
-### Setup
+### Setup for Running the Application Locally
+
+clone the repo and go to directory
+```sh
+git clone https://github.com/hsadler/collaborative-planning-app
+cd collaborative-planning-app
+```
 
 build the app base image
 ```sh
@@ -28,6 +34,8 @@ spin-up services with docker compose
 docker-compose -f docker-compose.yaml up --build --force-recreate \
 	--remove-orphans --abort-on-container-exit
 ```
+
+#### in a separate terminal...
 
 create the necessary mysql tables
 ```sh
