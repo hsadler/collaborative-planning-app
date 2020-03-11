@@ -34,7 +34,7 @@ X get Vue.js working
 		X user-create
 		X user-select 
 		X tasks
-		- task
+		X task
 	- polish:
 		- convert relevant endpoints to POSTs and sockets
 		- any remaining styling
@@ -47,3 +47,7 @@ X get Vue.js working
 
 
 // scratch
+
+vue-cli-service build --mode development --watch
+
+
