@@ -19,6 +19,12 @@
 				<td>{{data.voteCount}}</td>
 			</tr>
 		</table>
+		
+		<div class="select-user-link">
+			<router-link v-if="userNotSelected" to="/user-select">
+				select user in order to vote!
+			</router-link>
+		</div>
 
 	</div>
 </template>
@@ -44,12 +50,15 @@ export default {
 	},
 	methods: {
 		submitVote(variant) {
-			var params = {
-				user_id: this.userService.getUser().uuid4,
-				task_id: this.task.uuid4,
-				vote_variant: variant
+			var user = this.userService.getUser()
+			if(user) {
+				var params = {
+					user_id: user.uuid4,
+					task_id: this.task.uuid4,
+					vote_variant: variant
+				}
+				this.socket.emit('create_or_update_vote', params)
 			}
-			this.socket.emit('create_or_update_vote', params)
 		},
 		getVotesFromVariant(variant) {
 			if(variant.voteValue) {
@@ -67,7 +76,6 @@ export default {
 			return ''
 		},
 		getVariantToData() {
-			var user = this.userService.getUser()
 			var result = {}
 			this.voteVariants.forEach((voteVariant) => {
 				result[voteVariant.variant] = {
@@ -77,13 +85,17 @@ export default {
 				}
 			})
 			this.votes.forEach((vote) => {
+				var user = this.userService.getUser()
 				result[vote.variant]['votes'].push(vote)
 				result[vote.variant]['voteCount'] += 1
-				if(vote.user_uuid4 === user.uuid4) {
+				if(user && vote.user_uuid4 === user.uuid4) {
 					result[vote.variant]['userVoted'] = true
 				}
 			})
 			return result
+		},
+		userNotSelected() {
+			return this.userService.getUser() === null
 		}
 	},
 	created () {
@@ -151,6 +163,9 @@ export default {
 					background-color: #f3f3f3;
 				}
 			}
+		}
+		div.select-user-link {
+			margin-top: 20px;
 		}
 	}
 </style>

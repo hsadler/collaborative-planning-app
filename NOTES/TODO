@@ -35,11 +35,11 @@ X implement client:
 		X user-select 
 		X tasks
 		X task
-- polish:
+X polish:
 	X convert relevant endpoints to POSTs and sockets
 	X highlight user-selected vote
-	- ensure user-selection behaviour for voting
-	- any remaining styling
+	X ensure user-selection behaviour for voting
+	X any remaining styling
 - test:
 	- fresh repo clone and run-through
 - document:
