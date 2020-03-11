@@ -31,9 +31,10 @@ export default {
 	},
 	data () {
 		return {
+			userService: services.use('userService'),
 			httpService: services.use('httpService'),
 			socketService: services.use('socketService'),
-			userService: services.use('userService'),
+			socket: null,
 			task: null,
 			voteVariants: [],
 			votes: []
@@ -46,15 +47,7 @@ export default {
 				task_id: this.task.uuid4,
 				vote_variant: variant
 			}
-			this.httpService.get(
-				'/api/create-or-update-vote', 
-				params
-			).then((res) => {
-				if(res.success) {
-					console.log('vote cast:')
-					console.log(res.vote)
-				}
-			})
+			this.socket.emit('create_or_update_vote', params)
 		},
 		getVotesFromVariant(variant) {
 			if(variant.voteValue) {
@@ -88,6 +81,11 @@ export default {
 		}
 	},
 	created () {
+		// create socket and listeners
+		this.socket = this.socketService.io()
+		this.socket.on('refresh_votes', (votes) => {
+			this.votes = votes
+		})
 		// fetch task
 		var params = {
 			task_id: this.taskId
@@ -127,17 +125,17 @@ export default {
 		table {
 			border-collapse: collapse;
 			width: 100%;
-		}
-		td, th {
-			border: 1px solid #dddddd;
-			text-align: left;
-			padding: 8px;
-		}
-		td {
-			cursor: pointer;
-		}
-		tr:nth-child(even) {
-			background-color: #dddddd;
+			td, th {
+				border: 1px solid #dddddd;
+				text-align: left;
+				padding: 8px;
+			}
+			td {
+				cursor: pointer;
+			}
+			tr:nth-child(even) {
+				background-color: #dddddd;
+			}
 		}
 	}
 </style>

@@ -40,6 +40,8 @@ export default {
 	data () {
 		return {
 			httpService: services.use('httpService'),
+			socketService: services.use('socketService'),
+			socket: null,
 			newTaskTitle: null,
 			tasks: [],
 			minCharacters: 2,
@@ -49,21 +51,18 @@ export default {
 	methods: {
 		createTask () {
 			this.submissionError = false
-			if(this.newTaskTitle.length < this.minCharacters) {
+			if(
+				!this.newTaskTitle || 
+				this.newTaskTitle.length < this.minCharacters
+			) {
 				this.submissionError = true
 				return
 			}
-			// TODO: convert this to socket call
-			var url = '/api/create-task'
 			var params = {
 				task_title: this.newTaskTitle
 			}
-			this.httpService.get(url, params).then((res) => {
-				if(res.success) {
-					this.newTaskTitle = null
-					this.tasks.push(res.task)
-				}
-			})
+			this.socket.emit('create_task', params)
+			this.newTaskTitle = null
 		},
 		selectTask (task) {
 			this.$router.push({
@@ -75,10 +74,16 @@ export default {
 		}
 	},
 	created () {
+		// create socket and listeners
+		this.socket = this.socketService.io()
+		this.socket.on('task_created', (task) => {
+			this.tasks.push(task)
+		});
+		// fetch all tasks
 		var url = '/api/get-all-tasks'
 		this.httpService.get(url).then((res) => {
 			if(res.success) {
-				this.tasks = res.tasks
+				this.tasks = this.tasks.concat(res.tasks)
 			}
 		})
 	}

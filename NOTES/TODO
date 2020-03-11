@@ -28,7 +28,7 @@ X get Vue.js working
 	X POC API calls
 	X POC socket calls
 	X stub parts
-	- implement:
+	X implement:
 		X nav
 		X home
 		X user-create

@@ -1,4 +1,5 @@
 
+import json
 from flask import (
 	Flask,
 	request,
@@ -77,27 +78,13 @@ def get_all_users():
 ########## task API ##########
 
 
-# TODO: convert this to socket endpoint later
-@app.route('/api/create-task', methods=['GET'])
-def create_task():
-	task_title = request.args.get('task_title')
-	if task_title is None:
-		res = {
-			'success': 0,
-			'error': '"task_title" param required'
-		}
-		return make_response(
-			jsonify(res),
-			400
-		)
+@socketio.on('create_task')
+def create_task(params):
+	task_title = params['task_title']
 	task = TaskService.create_task(task_title)
 	if task is not None:
 		task = TaskService.get_task_api_formatted_data(task)
-	res = {
-		'success': 1 if task is not None else 0,
-		'task': task
-	}
-	return jsonify(res)
+		emit('task_created', task, broadcast=True)
 
 
 @app.route('/api/get-all-tasks', methods=['GET'])
@@ -140,21 +127,17 @@ def get_task_by_id():
 ########## vote API ##########
 
 
-# TODO: convert this to socket endpoint later
-@app.route('/api/create-or-update-vote', methods=['GET'])
-def create_or_update_vote():
-	# validate input params
-	required_args = ['user_id', 'task_id', 'vote_variant']
-	for req_arg in required_args:
-		if req_arg not in request.args:
-			return make_response(
-				jsonify({'error': 'missing required input param'}),
-				400
-			)
+@socketio.on('create_or_update_vote')
+def create_or_update_vote(params):
+	# validate params
+	required_params = ['user_id', 'task_id', 'vote_variant']
+	for req_param in required_params:
+		if req_param not in params:
+			return None
 	# get params
-	user_uuid4 = request.args.get('user_id')
-	task_uuid4 = request.args.get('task_id')
-	vote_variant = request.args.get('vote_variant')
+	user_uuid4 = params['user_id']
+	task_uuid4 = params['task_id']
+	vote_variant = params['vote_variant']
 	# create or update
 	vote = VoteService.create_or_update_vote(
 		user_uuid4, 
@@ -162,12 +145,13 @@ def create_or_update_vote():
 		vote_variant
 	)
 	if vote is not None:
-		vote = VoteService.get_vote_api_formatted_data(vote)
-	res = {
-		'success': 1 if vote is not None else 0,
-		'vote': vote
-	}
-	return jsonify(res)
+		votes = VoteService.load_all_votes_by_task(task_uuid4)
+		if votes is not None:
+			votes = [
+				VoteService.get_vote_api_formatted_data(vote)
+				for vote in votes
+			]
+		emit('refresh_votes', votes, broadcast=True)
 
 
 @app.route('/api/get-all-votes-by-task', methods=['GET'])
@@ -214,15 +198,17 @@ def get_all_vote_variants():
 # TESTING: sockets!
 @socketio.on('chat message')
 def chat_message(message):
-    emit('chat message', message, broadcast=True)
+	emit('chat message', message, broadcast=True)
 
 @socketio.on('connect')
 def test_connect():
-    emit('my response', {'data': 'Connected'})
+	print('connected')
+	emit('my response', {'data': 'Connected'})
 
 @socketio.on('disconnect')
 def test_disconnect():
-    print('Client disconnected')
+	print('Client disconnected')
+
 
 
 # serve index for non-API calls
