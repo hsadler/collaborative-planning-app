@@ -8,6 +8,7 @@
 				@click="selectUser(user)"
 			>{{ user.name }}</li>
 		</ul>
+		<p v-if="showNoUsersMessage">No users exist yet. Go create one.</p>
 	</div>
 </template>
 
@@ -21,7 +22,8 @@ export default {
 		return {
 			httpService: services.use('httpService'),
 			userService: services.use('userService'),
-			users: []
+			users: [],
+			showNoUsersMessage: false
 		}
 	},
 	methods: {
@@ -35,6 +37,9 @@ export default {
 		this.httpService.get(url).then((res) => {
 			if(res.success) {
 				this.users = res.users
+				if(this.users.length === 0) {
+					this.showNoUsersMessage = true
+				}
 			}
 		})
 	}

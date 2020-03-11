@@ -40,11 +40,10 @@ export default {
 				this.submissionError = true
 				return
 			}
-			var url = '/api/create-user'
-			var params = {
+			var data = {
 				user_name: this.userName
 			}
-			this.httpService.get(url, params).then((res) => {
+			this.httpService.post('/api/create-user', data).then((res) => {
 				if(res.success) {
 					this.userService.setUser(res.user)
 					this.$router.push('/tasks')

@@ -23,7 +23,7 @@ X implement BE:
 X write API test script
 X add base dockerfile with OS installs
 X get Vue.js working
-- implement client:
+X implement client:
 	X POC routing
 	X POC API calls
 	X POC socket calls
@@ -35,19 +35,15 @@ X get Vue.js working
 		X user-select 
 		X tasks
 		X task
-	- polish:
-		- convert relevant endpoints to POSTs and sockets
-		- any remaining styling
+- polish:
+	X convert relevant endpoints to POSTs and sockets
+	- highlight user-selected vote
+	- ensure user-selection behaviour for voting
+	- any remaining styling
 - test:
-	- ensure user-selection behaviour
 	- fresh repo clone and run-through
 - document:
 	- method docstrings
 	- README finalization
-
-
-// scratch
-
-vue-cli-service build --mode development --watch
 
 

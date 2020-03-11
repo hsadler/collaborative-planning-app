@@ -36,11 +36,10 @@ def ping():
 ########## user API ##########
 
 
-# TODO: convert this to a POST later
-@app.route('/api/create-user', methods=['GET'])
+@app.route('/api/create-user', methods=['POST'])
 def create_user():
-	user_name = request.args.get('user_name')
-	if user_name is None:
+	req_data = request.get_json()
+	if 'user_name' not in req_data:
 		res = {
 			'success': 0,
 			'error': '"user_name" param required'
@@ -49,6 +48,7 @@ def create_user():
 			jsonify(res),
 			400
 		)
+	user_name = req_data['user_name']
 	user = UserService.create_user(user_name)
 	if user is not None:
 		user = UserService.get_user_api_formatted_data(user)
