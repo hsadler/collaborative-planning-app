@@ -43,7 +43,7 @@ X polish:
 X document:
 	X method docstrings
 	X README finalization
-- test:
-	- fresh repo clone and run-through
+X test:
+	X fresh repo clone and run-through
 
 
