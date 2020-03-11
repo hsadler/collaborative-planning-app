@@ -34,10 +34,20 @@ def ping():
 
 
 ########## user API ##########
-
+	
 
 @app.route('/api/create-user', methods=['POST'])
 def create_user():
+
+	"""
+	Create a user.
+
+	Arguments:
+		user_name (string): Name of user.
+
+	Returns: Success boolean and API formatted user object.
+	"""
+
 	req_data = request.get_json()
 	if 'user_name' not in req_data:
 		res = {
@@ -61,6 +71,13 @@ def create_user():
 
 @app.route('/api/get-all-users', methods=['GET'])
 def get_all_users():
+
+	"""
+	Get all users.
+
+	Returns: Success boolean and array of API formatted user objects.
+	"""
+
 	users = UserService.load_all_users()
 	if users is not None:
 		users = [
@@ -80,6 +97,16 @@ def get_all_users():
 
 @socketio.on('create_task')
 def create_task(params):
+
+	"""
+	Create a task.
+
+	Arguments:
+		task_title (string): Title of task.
+
+	Side-effects: Emits 'task_created' event with task object payload.
+	"""
+
 	task_title = params['task_title']
 	task = TaskService.create_task(task_title)
 	if task is not None:
@@ -89,6 +116,13 @@ def create_task(params):
 
 @app.route('/api/get-all-tasks', methods=['GET'])
 def get_all_tasks():
+
+	"""
+	Fetch all tasks.
+
+	Returns: Success boolean and array of API formatted task objects.
+	"""
+
 	tasks = TaskService.load_all_tasks()
 	if tasks is not None:
 		tasks = [
@@ -104,6 +138,16 @@ def get_all_tasks():
 
 @app.route('/api/get-task-by-id', methods=['GET'])
 def get_task_by_id():
+
+	"""
+	Fetch a task by id.
+
+	Arguments:
+		task_id (string): UUID4 of task to fetch.
+
+	Returns: Success boolean and API formatted task object.
+	"""
+
 	task_uuid4 = request.args.get('task_id')
 	if task_uuid4 is None:
 		res = {
@@ -129,6 +173,21 @@ def get_task_by_id():
 
 @socketio.on('create_or_update_vote')
 def create_or_update_vote(params):
+
+	"""
+	Create or update a vote.
+
+	Arguments:
+		user_id (string): user UUID4.
+		task_id (string): task UUID4.
+		vote_variant (string): Vote variant.
+
+	Side-effects: 
+		Emits 'refresh_votes' event with array of vote objects payload. The 
+		votes in the payload are fetched by task UUID4.
+
+	"""
+
 	# validate params
 	required_params = ['user_id', 'task_id', 'vote_variant']
 	for req_param in required_params:
@@ -156,6 +215,16 @@ def create_or_update_vote(params):
 
 @app.route('/api/get-all-votes-by-task', methods=['GET'])
 def get_all_votes_by_task():
+
+	"""
+	Fetch votes by task.
+
+	Arguments:
+		task_id (string): UUID4 of task.
+
+	Returns: Success boolean and array of API formatted vote objects.
+	"""
+
 	task_uuid4 = request.args.get('task_id')
 	if task_uuid4 is None:
 		return make_response(
@@ -181,6 +250,13 @@ def get_all_votes_by_task():
 
 @app.route('/api/get-available-vote-variants', methods=['GET'])
 def get_all_vote_variants():
+
+	"""
+	Fetch all currently available vote variants.
+
+	Returns: Success boolean and array of API formatted vote_variant objects.
+	"""
+
 	vote_variants = VoteVariantService.load_all_vote_variants()
 	if vote_variants is not None:
 		vote_variants = [
