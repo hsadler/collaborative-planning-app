@@ -10,6 +10,26 @@ Prototype app for collaborative assessment of task complexity
 - Docker Compose
 
 
+### Technologies used
+
+#### OS/Containerization:
+	- Docker
+	- Alpine
+
+#### Datastore:
+	- MySQL
+
+#### Backend:
+	- Python
+	- Flask
+	- Flask-SocketIO
+	- mysqlclient
+
+#### Web Client:
+	- Vue.js
+	- Socket.IO
+
+
 ---
 
 
@@ -58,7 +78,21 @@ http://localhost/
 ---
 
 
-### Dev Commands (requires local containers to be running via docker-compose)
+### Dev Commands
+
+spin-up services with docker compose
+```sh
+docker-compose -f docker-compose-dev.yaml up --build --force-recreate \
+	--remove-orphans --abort-on-container-exit
+```
+
+#### in a separate terminal...
+
+start the npm build watcher
+```sh
+docker exec -it collaborative-planning-app \
+	bash -c "cd client/ && npm run build-dev"
+```
 
 connect to python-flask server container
 ```sh
@@ -69,6 +103,12 @@ connect to mysql container, start mysql cli, and select database
 ```sh
 docker exec -it collaborative-planning-app-mysql \
 	mysql --user=root --password=password collaborative-planning-app
+```
+
+create some mock data
+```sh
+docker exec -it collaborative-planning-app \
+	bash -c "cd server/scripts/ && python populate_mock_data.py"
 ```
 
 test api with shell script
