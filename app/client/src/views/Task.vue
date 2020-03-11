@@ -9,6 +9,8 @@
 				<th>Votes</th>
 			</tr>
 			<tr 
+				class="data-row" 
+				:class="{'user-voted': data.userVoted}"
 				v-for="(data, variant) in getVariantToData" 
 				:key="variant"
 				@click="submitVote(variant)"
@@ -65,6 +67,7 @@ export default {
 			return ''
 		},
 		getVariantToData() {
+			var user = this.userService.getUser()
 			var result = {}
 			this.voteVariants.forEach((voteVariant) => {
 				result[voteVariant.variant] = {
@@ -76,6 +79,9 @@ export default {
 			this.votes.forEach((vote) => {
 				result[vote.variant]['votes'].push(vote)
 				result[vote.variant]['voteCount'] += 1
+				if(vote.user_uuid4 === user.uuid4) {
+					result[vote.variant]['userVoted'] = true
+				}
 			})
 			return result
 		}
@@ -126,15 +132,24 @@ export default {
 			border-collapse: collapse;
 			width: 100%;
 			td, th {
-				border: 1px solid #dddddd;
 				text-align: left;
-				padding: 8px;
+				padding: 10px;
 			}
 			td {
 				cursor: pointer;
 			}
-			tr:nth-child(even) {
-				background-color: #dddddd;
+			tr {
+				&.data-row {
+					&.user-voted {
+						background-color: #86d4b1 !important;
+					}
+					&:hover {
+						background-color: #bcebd6;
+					}
+				}
+				&:nth-child(even) {
+					background-color: #f3f3f3;
+				}
 			}
 		}
 	}

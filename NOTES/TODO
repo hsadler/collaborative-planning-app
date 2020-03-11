@@ -37,7 +37,7 @@ X implement client:
 		X task
 - polish:
 	X convert relevant endpoints to POSTs and sockets
-	- highlight user-selected vote
+	X highlight user-selected vote
 	- ensure user-selection behaviour for voting
 	- any remaining styling
 - test:
