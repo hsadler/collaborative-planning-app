@@ -107,6 +107,8 @@ def create_task(params):
 	Side-effects: Emits 'task_created' event with task object payload.
 	"""
 
+	if 'task_title' not in params:
+		return None
 	task_title = params['task_title']
 	task = TaskService.create_task(task_title)
 	if task is not None:
