@@ -101,7 +101,7 @@ export default {
 	created () {
 		// create socket and listeners
 		this.socket = this.socketService.io()
-		this.socket.on('refresh_votes', (votes) => {
+		this.socket.on('refresh_votes_' + this.taskId, (votes) => {
 			this.votes = votes
 		})
 		// fetch task

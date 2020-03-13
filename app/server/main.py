@@ -210,7 +210,7 @@ def create_or_update_vote(params):
 				VoteService.get_vote_api_formatted_data(vote)
 				for vote in votes
 			]
-		emit('refresh_votes', votes, broadcast=True)
+		emit('refresh_votes_' + task_uuid4, votes, broadcast=True)
 
 
 @app.route('/api/get-all-votes-by-task', methods=['GET'])
