@@ -40,8 +40,9 @@ Prototype app for collaborative assessment of task complexity
 
 1. run `make setup` to build the "base" and "app" images
 2. run `make up` to spin-up the webapp and mysql containers
-3. run `make setup-db` to create and populate the MySQL tables
+3. in a separate terminal, run `make setup-db` to create and populate the MySQL tables
 4. navigate to application in browser `http://localhost/`
+5. `ctl-c` the original terminal and run `make down` to spin-down the containers
 
 
 ---
