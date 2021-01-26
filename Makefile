@@ -3,7 +3,6 @@
 
 setup: build-base build-app
 
-# make up must be running when using this command
 setup-db:
 	docker-compose exec webapp bash -c "cd server/scripts/ && \
 	python create_tables.py && python populate_vote_variant_table.py"
@@ -24,10 +23,10 @@ db-logs:
 	docker-compose -f docker-compose-dev.yaml logs -f mysql
 
 be-shell:
-	docker exec -it collaborative-planning-app bash
+	docker-compose -f docker-compose-dev.yaml exec webapp bash
 
 db-shell:
-	docker exec -it collaborative-planning-app-mysql \
+	docker-compose -f docker-compose-dev.yaml exec mysql \
 	mysql --user=root --password=password collaborative-planning-app
 
 

@@ -36,87 +36,22 @@ Prototype app for collaborative assessment of task complexity
 ---
 
 
-### Setup for Running the Application Locally
+### Initial Setup for Running the Application Locally
 
-clone the repo and go to directory
-```sh
-git clone https://github.com/hsadler/collaborative-planning-app
-cd collaborative-planning-app
-```
-
-build the app base image
-```sh
-docker build \
-	--no-cache \
-	-f=base.Dockerfile \
-	-t=collaborative-planning-app-base:v1 .
-```
-
-spin-up services with docker compose
-```sh
-docker-compose -f docker-compose.yaml up --build --force-recreate \
-	--remove-orphans --abort-on-container-exit
-```
-
-#### in a separate terminal...
-
-create the necessary mysql tables
-```sh
-docker exec -it collaborative-planning-app \
-	bash -c "cd server/scripts/ && python create_tables.py"
-```
-
-populate the `vote_variant` table
-```sh
-docker exec -it collaborative-planning-app \
-	bash -c "cd server/scripts/ && python populate_vote_variant_table.py"
-```
-
-navigate to application in browser
-```sh
-http://localhost/
-```
+1. run `make setup` to build the "base" and "app" images
+2. run `make up` to spin-up the webapp and mysql containers
+3. run `make setup-db` to create and populate the MySQL tables
+4. navigate to application in browser `http://localhost/`
 
 
 ---
 
 
-### Dev Commands
+### Development Commands
 
-spin-up services with docker compose
-```sh
-docker-compose -f docker-compose-dev.yaml up --build --force-recreate \
-	--remove-orphans --abort-on-container-exit
-```
+`make up`: spin-up containers which serve the web app to `http://localhost/`
 
-#### in a separate terminal...
+`make down`: spin-down containers
 
-start the npm build watcher
-```sh
-docker exec -it collaborative-planning-app \
-	bash -c "cd client/ && npm run build-dev"
-```
-
-connect to python-flask server container
-```sh
-docker exec -it collaborative-planning-app bash
-```
-
-connect to mysql container, start mysql cli, and select database
-```sh
-docker exec -it collaborative-planning-app-mysql \
-	mysql --user=root --password=password collaborative-planning-app
-```
-
-create some mock data
-```sh
-docker exec -it collaborative-planning-app \
-	bash -c "cd server/scripts/ && python populate_mock_data.py"
-```
-
-test api with shell script
-```sh
-source tests/test_api.sh
-```
-
+Other dev commands are available in the Makefile.
 
