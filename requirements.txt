@@ -1,4 +1,4 @@
 Flask==1.1.2
 Flask-SocketIO==4.3.2
 mysqlclient==2.0.3
-eventlet==0.30.0
+eventlet==0.31.0
