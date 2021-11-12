@@ -19,7 +19,7 @@ services:
     volumes:
       - ./app/server:/app/server
       - ./app/client/src:/app/client/src
-    command: 'python server/main.py'
+    command: 'python -u server/main.py'
 
   mysql:
     image: mysql:8.0.19
