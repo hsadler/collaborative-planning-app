@@ -19,7 +19,9 @@ services:
     volumes:
       - ./app/server:/app/server
       - ./app/client/src:/app/client/src
-    command: 'python -u server/main.py'
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: 'python server/main.py'
 
   mysql:
     image: mysql:8.0.19

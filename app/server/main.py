@@ -8,14 +8,6 @@ from flask import (
 )
 from flask_socketio import SocketIO, emit
 
-# configure logging
-import logging
-logging.basicConfig(
-	format='%(asctime)s - %(levelname)s - %(funcName)s - %(message)s  ',
-	datefmt='%d-%b-%y %H:%M:%S',
-	level=logging.DEBUG
-)
-
 # import services
 from service.user_service import UserService
 from service.task_service import TaskService
@@ -133,7 +125,9 @@ def get_all_tasks():
 	"""
 
 	tasks = TaskService.load_all_tasks()
-	logging.debug('tasks===============> %s', [t.__dict__ for t in tasks])
+	# debug print example
+	from utils.print import ppp
+	ppp('tasks ======================> ', [t.__dict__ for t in tasks], as_json=1)
 	if tasks is not None:
 		tasks = [
 			TaskService.get_task_api_formatted_data(task)

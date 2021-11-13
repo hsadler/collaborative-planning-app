@@ -38,6 +38,9 @@ class TaskService():
 			SELECT * FROM {0}
 		""".format(cls.TASK_TABLE)
 		success, query_result = MySqlDriver.query_bind(sql)
+		# debug print example
+		from utils.print import ppp
+		ppp('query_result ======================> ', query_result, as_json=1)
 		if not success:
 			return None
 		tasks = [
